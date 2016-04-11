@@ -2,9 +2,10 @@ var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
-    body_parser = require('body-parser'),
     ToDo = require('./ToDo'),
-    method_override = require('method-override'),
+    // Test = require('./Test'),
+    body_parser = require('body-parser'),
+        method_override = require('method-override'),
     mongo_db_uri = "mongodb://ek5442:NokiaLumia920@ds033875.mlab.com:33875/movies";
 mongoose.connect(mongo_db_uri);
 var db = mongoose.connection;
@@ -16,18 +17,18 @@ app.use(express.static(__dirname+'/public'));
 app.use(morgan('dev'));
 app.use(body_parser.urlencoded({'extended':'true'}));
 app.use(body_parser.json());
-app.use(body_parser.json({type: 'application/vnd.api+json'}));
+app.use(body_parser.json({type: 'application/json'}));
 app.use(method_override());
-
 
 app.listen(8000);
 console.log("Application listening to port 8000");
-
 app.get('/api/todos',function(req,res){
     ToDo.find(function(err,data){
           if (err)
             res.send(err);
+
           else {
+            console.log(data);
             res.send(data);
           }
     });
@@ -43,6 +44,7 @@ app.post('/api/todos',function(req,res){
       if(err)
         res.send(err);
       else {
+
           res.json(data);
       }
     });
@@ -64,5 +66,5 @@ app.delete('/api/delete/:todo_id',function(req,res){
   });
 });
 app.get('*',function(req,res){
-  res.senfiles('./public/index.html');
+  res.sendfile('./public/index.html');
 });

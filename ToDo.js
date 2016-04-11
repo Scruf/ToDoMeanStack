@@ -1,8 +1,8 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ToDoSchema = new Schema ({
-        text: String,
-        done: Boolean
-    });
-    var ToDoList = mongoose.model('ToDos',ToDoSchema);
-    module.exports = ToDoList;
+var mongoose = require('mongoose');
+var Schema  = mongoose.Schema;
+var ToDoScheam = new Schema({
+	text:String,
+	
+});
+var ToDo = mongoose.model('ToDo',ToDoScheam);
+module.exports = ToDo;
