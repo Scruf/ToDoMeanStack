@@ -38,7 +38,7 @@
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="checkbox" ng-repeat="todo in todos">
                     <label>
-                        <input type="checkbox" ng-click="deleteToDo(todo._id)">There was supposed to be text here{{todo._id}}
+                        <input type="checkbox" ng-click="deleteToDo(todo._id)">{{todo.text}}
                     </label>
                 </div>
             </div>

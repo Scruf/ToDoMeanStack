@@ -17,8 +17,8 @@ app.use(express.static(__dirname+'/public'));
 app.use(morgan('dev'));
 app.use(body_parser.urlencoded({'extended':'true'}));
 app.use(body_parser.json());
-app.use(body_parser.json({type: 'application/json'}));
-app.use(method_override());
+app.use(body_parser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
+app.use(method_override('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 app.listen(8000);
 console.log("Application listening to port 8000");
@@ -28,12 +28,13 @@ app.get('/api/todos',function(req,res){
             res.send(err);
 
           else {
-            console.log(data);
+            console.log(data)
             res.send(data);
           }
     });
 });
 app.post('/api/todos',function(req,res){
+  console.log(req.body.text);
   ToDo.create({
     text: req.body.text,
     done: false
